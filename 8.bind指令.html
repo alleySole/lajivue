@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="app">
+        {{ msg }}
+
+        <img :src="url" alt="">
+        <div v-bind:class='[class1,class2]'>
+
+       
+        </div> 
+       
+        <div v-bind="{id:son,'height':son}"></div>
+        
+        <div v-bind:class ='{ red:isda}'></div>
+
+        <div v-bind:class="[isa == isb ? ' ' : '对咯']"></div>
+
+        <div v-bind:class="[class1,{ class1:isda, class2:isda}]"></div>
+
+
+        <div :style="{ fontSize: num+'px' }">dsa</div>
+
+        <div :style="objcolor">
+            对你撒娇看
+        </div>
+
+
+
+        <svg :view-box.camel='viewBox'>dsa</svg>
+        <!-- 保持这样的形象 -->
+    </div>
+
+        <!-- v-dind:class 可以和普通class 共存 -->
+        
+    <script>
+        const vm = new Vue({
+            el:'.app',
+            data:{
+                msg:'早上好！！',
+                hu:'王先生',
+                url:'./mv.jpg',
+                class1:'p1',
+                class2:'p2',
+                son:'大苏打',
+                isda:true,
+                isa:1,
+                isb:2,
+                num:100,
+                objcolor:{
+                    fontSize:'100px'
+                },
+                viewBox:'dsa'
+            },
+               
+        })
+
+
+
+        
+    </script>
+</body>
+</html>

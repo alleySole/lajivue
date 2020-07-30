@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="app">
+        <input type="button" v-on:[tak]='cont(1,$event)'>点击</input>
+        <!-- 前面是变量，后面是本身 -->
+
+        <!-- <input v-on ="{ click: do , click:to }" type="button" > -->
+
+        <!-- <div v-on="{ click: do , click:to }">dasd</div> -->
+        <div v-on="{ mousedown: doThis, mouseup: doThat }">dsadsadsad</div>
+    </div>
+
+    <script>
+        var num =1;
+        const vm = new Vue({
+            el:'.app',
+            data:{
+                cont:function(b,$event){
+                    console.log(b,$event);
+                    console.log(this)
+                },
+                doThis:function(){
+                    console.log('down');
+                },
+                doThat:function(){
+                    console.log('to')
+                },
+                tak:'click'
+                // do:'d'
+                // 可以动态绑定事件-需要2.6.0以上版本
+            }
+        })
+
+
+
+
+    </script>
+</body>
+</html>

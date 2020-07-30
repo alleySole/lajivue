@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 判断这个元素以及子元素，是否渲染，展示出来 -->
+    <div v-if='isDta' class="app">
+        {{ msg }}
+
+        <template v-if='false'>
+            <span>dsdasd</span>
+            <p>sdasdsa</p>
+            d
+     
+         </template>
+         <div v-if='Math.random() > 0.5'>显出</div>
+         <div v-else>不显示</div>
+         <!-- 频繁切换的话，用这个， -->
+         <div v-show ='false'>
+             <span>dsdas</span>
+             <p>ds阿德撒旦</p>
+         </div>
+         <!-- v-show,是根据表达式的值，开切换css样式，display:none---display:block -->
+    </div>
+    <!-- 被这个包裹的元素会被当做不可见的元素，就算渲染出来了，也不会出现在页面上 -->
+    
+
+    <template v-if="ok">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+      </template>
+   
+
+    <script>
+        const vm = new Vue({
+            el:'.app',
+            data:{
+                msg:'唇红齿白!!!',
+                isDta:true,
+                ok:false
+            }
+        })
+        
+
+
+
+    </script>
+</body>
+</html>

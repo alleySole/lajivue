@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="app">
+        {{ msg }}
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el:'.app',
+            data:{
+                msg:'风姿卓约、花枝招展',
+                mrDeng:{
+                    name:'邓旭明',
+                    age:88,
+                    height:'140cm'
+                }
+            }
+        });
+        vm.msg = '爱情三十六计'
+        console.log(vm.msg,vm.$el.innerHTML);
+        // vm.$mount('.app')
+
+        vm.msg = '釜底抽薪'
+        console.log(vm.msg,vm.$el.innerHTML);
+
+        // 如何在更改数据后，看到渲染后页面上的值？
+        // 答：利用vm.$nextTick或Vue.nextTick,在页面重新渲染，Dom更新后，会立刻执行vm.$nextTick
+
+        vm.$nextTick(() => {
+            console.log(vm.msg,vm.$el.innerHTML)
+        });
+        Vue.nextTick(() => {
+            console.log(vm.msg,vm.$el.innerHTML)
+        })
+        //vm.$.nextTick和Vue.nextTick的this分别指向的是
+        //区别
+        vm.$nextTick(function(){
+            console.log(this);
+        })
+        // 指向的是Vue实例
+        Vue.nextTick(function(){
+            console.log(this);
+        })
+        // 指向的是window对象
+
+        // vm.$nextTick和Vue.nextTick还可以作为Promise使用
+        vm.$nextTick().then(()=>{
+            console.log(vm.msg,vm.$el.innerHTML);
+        })
+        Vue.nextTick().then(()=>{
+            console.log(vm.msg,vm.$el.innerHTML)
+        })
+
+        // 你好奇nextTick是怎么实现的嘛?
+
+        //1. 异步任务分为宏任务,和微任务
+        //宏任务比较慢,(如setTimeout),微任务比较快(Promise.then()等)
+        //微任务在前,宏任务在后,(enentloop,事件环)
+
+        setTimeout(()=>{
+            console.log('timeout')
+        },0)
+        Promise.resolve().then(()=>{
+            console.log('Promise')
+        })
+        // 执行顺序是,Promise - timeout
+        
+        // 在nextTick的源码实现中,会判断是否支持微任务,不支持后,才会执行宏任务
+        if(typeof Promise !== 'undefined') {
+      // 微任务
+      // 首先看一下浏览器中有没有promise
+      // 因为IE浏览器中不能执行Promise
+      const p = Promise.resolve();
+
+    } else if(typeof MutationObserver !== 'undefined') {
+      // 微任务
+      // 突变观察
+      // 监听文档中文字的变化，如果文字有变化，就会执行回调
+      // vue的具体做法是：创建一个假节点，然后让这个假节点稍微改动一下，就会执行对应的函数
+    } else if(typeof setImmediate !== 'undefined') {
+      // 宏任务
+      // 只在IE下有
+    } else {
+      // 宏任务
+      // 如果上面都不能执行，那么则会调用setTimeout
+    }
+
+    //曾经,Vue使用过的宏任务
+    // MessageChannel 消息通道 宏任务          
+    
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="app" v-pre>
+        {{ msg }}
+    </div>
+    <script>
+        const vm = new Vue({
+            el:'.app',
+            data:{
+                msg:'爱情三十六计'
+            }
+        })
+// Mustache --胡子,胡须的意思
+//1. v-pre   跳过这个元素和子元素的编译过程
+//2. v-cloak 这个指令保持在元素直到关联实例,结束编译,
+//要和css,[v-clock]{display:none}一直使用,直到变异结束,才会显示,解决闪烁问题
+//3. v-once 元素以及子元素,只渲染一次,有的字节被视为静态内容,可直接跳过,用于优化更新性能  
+//4. v-text VS　textContent 
+//v-text 替换元素中所有的文本,只替换自己,不清空,优先级高于{{}},触发重排
+//textContent 会获取所有元素的内容,使用它
+//5. v-html 更新元素的innerHTML，作为普通的HTML插入,不作为vue进行模板编译
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" href="./12.index.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <div
+        class="goods"
+        v-for="(list,list_index) in goodsList"
+        :key="list.id"
+        >
+                {{ list.title }}
+                <!-- {{ list.index }} -->
+           <ul class="type-list">
+                <li
+                class="type"
+                :class="{ active : type_index ==  list.index}"
+                        
+                v-for="(item,type_index) in list.typeList"
+                
+                @click="liClick(list,list_index,type_index,item)"
+                >
+                {{ item }}
+                
+                </li>
+           </ul>
+        </div>
+       
+
+        <div class="choose-type">
+            <div>筛选条件</div>
+            <span class="no-goods" v-if="!isfilter">请选择筛选条件</span>
+            <ul class="filter-list " v-else>
+                <li v-for="(item,dekey,index) in filterList">{{ item }}
+                    <span 
+                    class="delete-goods"
+                    @click="del(dekey)"
+                    >x</span>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el:'#app',
+            data:{
+                filterList:{},
+                isfilter:false,
+                active:'active',
+                goodsList: [
+                {
+                    title: '上装',
+                    typeList: ['全部', '针织衫', '毛呢外套', 'T恤', '羽绒服', '棉衣', '卫衣', '风衣' ],
+                    id: 1,
+                },
+                {
+                    title: '裤装',
+                    typeList: ['全部', '牛仔裤', '小脚/铅笔裤', '休闲裤' ,'打底裤', '哈伦裤'],
+                    id: 2,
+                },
+                {
+                    title: '裙装',
+                    typeList: ['全部', '连衣裙', '半身裙', '长袖连衣裙', '中长款连衣裙'],
+                    id: 3,
+                }
+                ],  
+            },
+            methods: {
+                liClick (list,list_index,type_index,item){   
+                    if(type_index == 0){
+                        return;
+                    }
+                    list.index =  type_index;
+                    this.isfilter = true;
+                    vm.$set(this.filterList,list_index,item)
+                    // console.log(item)
+                    // this.filterList.push(item);//方法不可取
+                    // this.filterList.splice(type_index,1,item)//方法不可取
+                    // console.log(list_index,type_index, list.index)
+                    console.log( this.filterList)
+                },
+                del(key){
+                    console.log(key);
+                    vm.$delete(this.filterList,key);
+                    this.goodsList[key].index = 0;
+                    this.showChange();
+                },
+                showChange(){
+                    const fstr = JSON.stringify(this.filterList)
+                    // 转换位JSON格式
+                    this.isfilter = fstr !== '{}'
+                    console.log(fstr,'dsadsa')
+                }
+            }
+        
+
+        })
+        vm.goodsList.forEach(item => {vm.$set(item,'index',0) });
+        // 给每个元素加上index 
+        // vm.goodsList.forEach(item=>{
+        //     console.log(item)
+        // })
+        
+    </script>
+</body>
+</html>

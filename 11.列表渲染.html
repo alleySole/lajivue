@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!--  数组只有两个，对象有三个 -->
+    <!-- <li 
+        v-for="(item, index) of lists" 
+        @click="click">
+        {{ item.name }}
+        {{ index }}
+        {{ item.age }} -->
+
+    <!-- <template> -->
+    <ul id="app" >
+        <li v-for="(item,index,key) of lists" >{{ item.name }}</li>
+        <span>{{ item.age }}</span>
+        <li>{{ '这是索引'+index }}</li>
+        <li>{{ '这是key' }}</li>
+    </ul>
+    <!-- </template> -->
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          // lists:['小王','小刘','小话'],
+          lists: [
+            {
+              name: "小王",
+              age: 18,
+            },
+            {
+              name: "小刘",
+              age: 22,
+            },
+            {
+              name: "小花",
+              age: 16,
+            },
+          ],
+          click: function (e) {
+            console.log(e);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
