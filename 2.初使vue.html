@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 被控制的区域，叫做模板 -->
+        <div class="app">
+            {{ msg }}
+            {{ 123 }}
+            {{ [,'dsad','dsadas','das'] }}
+            {{ '惊天动地，泣鬼神！！！' }}
+            {{ 1+1 }}
+            {{ !0 }}
+            {{ 1+1==2 ? '正常人' : '不正常' }}
+            {{ ul.u }}
+            <!-- 插入进去，叫做差值表达式 
+                 {{ js }} --》花括号要有空格
+                 数字，字符串，boolean,array,object ,表达式 ,undefined/null,不会报错
+                如找不到，对象中的值，会显示undefined/null
+            
+                表达式：--要写经过声明的表达，否则会报错
+            -->
+        </div>
+    <script src="./vue.js"></script>
+    <script>
+        
+        const vm = new Vue({   
+            //el - element元素 
+            el:'.app',
+            data:{
+                msg:'你好啊！',
+                ul:{
+                    u:'abd'
+                    }
+            },
+        });
+        // $.
+        // vm.$mount('.app') === el:'.app'
+
+        
+    </script>
+</body>
+</html>
