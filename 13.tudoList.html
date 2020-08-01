@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="./13.tudoList.css"> -->
+    <link rel="stylesheet" href="./13.tudo.css">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+     <div class="app">
+        <header class="disk">
+            <div class="conter title">
+                <h3>toDoList</h3>
+                <input @input='inpuValu' type="test" :value="tck" />
+                <button @click = 'butClick(adda)'>添加</button>
+
+            </div>
+            <div class="conter ">
+                <div class="t-con">
+                    <h3>正在进行</h3>
+                    <span>{{ zdata.length }}</span>
+                </div>
+                <ul class="">
+                    <li v-for='(item,index) in zdata' :key='item.id'>
+                        <!-- addbox -->
+                            <input @click='change(index,$event,istrue)  ' type="checkbox"  id="ck"/> 
+                            <p>{{ item.title }}</p>
+                            <button @click='deleteBtn(index,list1)'>删除</button>
+                    </li>
+                </ul>
+                <div class="t-con">
+                    <h3>已经完成</h3>
+                    <span>{{ yidata.length }}</span>
+                </div>
+                <ul class="">
+                    <li v-for='(yi,index) in yidata' :key='yi.id'>
+                        <input @click='change(index,$event,isfalse)  ' checked type="checkbox" id="ck"/> 
+                        <p>{{ yi.title }}</p>
+                        <button @click='deleteBtn(index,list2)'>删除</button>
+                    </li>
+                </ul>
+            </div>
+
+
+            
+        </header>
+
+
+
+     </div>     
+
+    <script>
+            const vm = new Vue({
+                el:'.app',
+                data:{
+                    inpuData:'',
+                    zdata:[
+                    {   title:'唇红齿白',
+                        id:1
+                    },
+                    {   title:'貌美如花',
+                        id:2
+                    },
+                    {   title:'天线宝宝',
+                        id:3
+                    }],
+                    tck:'',//这个为什么会消失,
+                    yidata:[],//移到下面的列表
+                    adda:'adda',
+                    yiadd:'yiadd',
+                    isbox:null,
+                    istrue:'istrue',
+                    isfalse:'isfalse',
+                    list1:'list1',
+                    list2:'list2'
+
+                },
+                methods:{
+                    //写事件
+                    butClick:function(type,index,$event,isor){
+                        //判断是否添加到列表
+                        if(this.inpuData === ''){
+                            return false;
+                        }
+                        console.log(typeof(this.inpuData))
+                        // console.log(type)
+                        this.zdata.push({
+                                title:this.inpuData,
+                                id:Math.random()
+                            });
+                            this.inpuData = '';
+                            console.log(this.zdata);
+                    },
+                    change:function(index,$event,isor){
+                        //选择框按钮
+                        // if(type == this.adda){
+                        //     // this.zdata.push({
+                        //     //     title:this.inpuData,
+                        //     //     id:Math.random()
+                        //     // });
+                        //     // this.inpuData = '';
+                        //     // console.log(this.zdata);
+                        // }else if(type == this.yiadd){
+                        //     // this.yidata.push(this.inpuData);
+                        //     // e.target.checked
+                        //     this.isbox =$event.target.checked;
+                           
+                        // }
+                        this.isbox =$event.target.checked;
+                        if(isor == this.istrue){
+                                console.log(this.isbox);
+                                // this.zdata.splic()
+                                let de = this.zdata.splice(index,1)
+                                this.yidata.push(...de);
+                                // const de = this.$delete(this.zdata,index);
+                                console.log(de,this.yidata);
+                            }else if(isor == this.isfalse){
+                                let dy = this.yidata.splice(index,1)
+                                this.zdata.push(...dy);
+                                console.log('的萨科')
+                            }
+                    },
+                    inpuValu:function(e){
+                        // console.log(e.data);
+                        this.inpuData = e.target.value;
+                        console.log(this.inpuData)
+
+                    },
+                    deleteBtn:function(index,type){
+                        // console.log(index);
+                        // console.log(this.zdata[index])
+                        if(type == this.list1){
+                           this.$delete(this.zdata,index) 
+                        }else if(type == this.list2){
+                              this.$delete(this.yidata,index)
+                        }
+                        
+
+                      
+                        // console.log(this.zdata);
+
+                    },
+                    addbox:function(e){
+                        // console.log(e)
+                        console.log(e.target.checked);
+
+                    }
+                }
+            })
+
+
+
+
+    </script>
+</body>
+</html>
